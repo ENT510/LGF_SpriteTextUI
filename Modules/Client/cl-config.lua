@@ -10,4 +10,4 @@ Config.DefaultBind = "E"
 Config.EnableDebug = true
 
 
-
+return Config
