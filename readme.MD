@@ -20,7 +20,6 @@
 ---@param id string|number -- Identifier for the TextUI
 ---@param data TextUIData -- Data containing the configuration for the TextUI
 ---@return duiHandler? -- The handler that interacts with the TextUI
-
 exports.LGF_SpriteTextUI:HandleTextUI(id, data)
 ```
 
