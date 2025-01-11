@@ -81,7 +81,7 @@ exports.LGF_SpriteTextUI:IsDuiVisible()
 ---@field BindToHold number -- The control ID for holding the key (default 38 for 'E')
 ---@field TimeToHold number -- The amount of time (in seconds) the key should be held (default 5)
 ---@field DistanceHold number -- The distance within which the interaction is valid (default 2)
----@field Coords vector3 -- Coordinates of the interaction point (x, y, z)
+---@field Coords vector3 -- Coordinates of the interaction point (x, y, z) (used to check the distance for enable The holding)
 ---@field onCallback fun(id: string|number) -- Callback function to be called when interaction is complete
 exports.LGF_SpriteTextUI:HandleHoldTextUI(id, data)
 ```
@@ -107,4 +107,35 @@ exports.LGF_SpriteTextUI:RemoveHoldTextUIs()
 ---@param id string -- Unique identifier of the DUI to be removed
 ---@return nil
 exports.LGF_SpriteTextUI:CloseHoldTextUI(id)
+```
+
+# Example Usage Without HOLDER
+
+```lua
+local DuiHandler = exports.LGF_SpriteTextUI:HandleTextUI("id_without_hold", {
+    Visible = true,
+    Message = "Press to interact",
+    Bind = 'E',
+    UseOnlyBind = false,
+    CircleColor = "teal",
+})
+```
+
+# Example Usage With HOLDER
+
+```lua
+local DuiHandler = exports.LGF_SpriteTextUI:HandleHoldTextUI("id_hold", {
+    Visible = true,
+    Message = 'Hold to interact',
+    Bind = "E",
+    CircleColor = "teal",
+    UseOnlyBind = false,
+    BindToHold = 38,
+    TimeToHold = 5,
+    DistanceHold = 2,
+    Coords = GetEntityCoords(cache.ped),
+    onCallback = function(id)
+        exports.LGF_SpriteTextUI:RemoveHoldTextUI(id)
+    end
+})
 ```
