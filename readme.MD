@@ -83,6 +83,7 @@ exports.LGF_SpriteTextUI:IsDuiVisible()
 ---@field DistanceHold number -- The distance within which the interaction is valid (default 2)
 ---@field Coords vector3 -- Coordinates of the interaction point (x, y, z) (used to check the distance for enable The holding)
 ---@field onCallback fun(id: string|number) -- Callback function to be called when interaction is complete
+---@field canInteract fun(id: string|number, distance: number): boolean -- Callback function to determine if interaction is possible
 exports.LGF_SpriteTextUI:HandleHoldTextUI(id, data)
 ```
 
@@ -134,6 +135,9 @@ local DuiHandler = exports.LGF_SpriteTextUI:HandleHoldTextUI("id_hold", {
     TimeToHold = 5,
     DistanceHold = 2,
     Coords = GetEntityCoords(cache.ped),
+    canInteract = function(id,distance)
+        return true
+    end,
     onCallback = function(id)
         exports.LGF_SpriteTextUI:RemoveHoldTextUI(id)
     end

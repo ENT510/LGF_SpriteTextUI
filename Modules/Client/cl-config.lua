@@ -7,7 +7,7 @@ Config.DefaultColorCircle = "teal"
 Config.DefaultBind = "E"
 
 -- Debug Purposes
-Config.EnableDebug = true
+Config.EnableDebug = false
 
 
 return Config

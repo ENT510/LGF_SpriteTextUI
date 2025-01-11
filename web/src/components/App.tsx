@@ -12,22 +12,6 @@ const App: React.FC = () => {
   const [circleColor, setCircleColor] = useState("");
   const [progress, setProgress] = useState(0);
   const [useOnlyBind, setOnlyBind] = useState(false);
-  const [resourceName, setResourceName] = useState<string>("");
-
-  useEffect(() => {
-    if (textuiVisible) {
-      const name = (window as any).GetParentResourceName
-        ? (window as any).GetParentResourceName()
-        : "nui-frame-app";
-
-      setResourceName(name);
-
-      if (name !== "LGF_SpriteTextUI") {
-        console.error('Invalid Name. Must be called "LGF_SpriteTextUi"!');
-        return;
-      }
-    }
-  }, [textuiVisible]);
 
   useNuiEvent<any>("manageTextUI", (data) => {
     setTextUIvisible(data.Visible);
@@ -40,10 +24,6 @@ const App: React.FC = () => {
   useNuiEvent<any>("updateProgress", (data) => {
     setProgress(data.Progress);
   });
-
-  if (resourceName !== "LGF_SpriteTextUi") {
-    return null;
-  }
 
   return (
     <>
@@ -63,7 +43,7 @@ const App: React.FC = () => {
             variant="default"
             color="orange"
           >
-            Toggle Shop
+            Toggle Interact
           </Button>
         </div>
       )}

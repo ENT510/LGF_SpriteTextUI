@@ -52,7 +52,7 @@ const Interaction: React.FC<InteractionProps> = ({
         <RingProgress
           size={40}
           thickness={3}
-          sections={[{ value: progress || 100, color: circleColor }]}
+          sections={[{ value: progress, color: circleColor }]}
           label={
             <Text size="xs" align="center" color="white">
               {bind}

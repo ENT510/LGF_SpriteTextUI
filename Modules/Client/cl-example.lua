@@ -33,6 +33,7 @@ local pumpModels = {
 --                 Bind = 'E',
 --                 UseOnlyBind = false,
 --                 CircleColor = "teal",
+
 --             })
 --             self.duiHandler = duiHandlers[self.id]
 --         end
@@ -86,6 +87,9 @@ CreateThread(function()
                 TimeToHold = 5,
                 DistanceHold = 2,
                 Coords = self.coords,
+                canInteract = function(id, distance)
+                    return true
+                end,
                 onCallback = function(id)
                     exports.LGF_SpriteTextUI:RemoveHoldTextUI(id)
                     point:remove()
@@ -109,5 +113,3 @@ CreateThread(function()
         end
     end
 end)
-
-

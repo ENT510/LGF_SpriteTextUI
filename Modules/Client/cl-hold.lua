@@ -36,6 +36,7 @@ function Hold:init(id, data)
             isCompleted  = false,
             coords       = data.Coords or { x = 0, y = 0, z = 0 },
             distanceHold = data.DistanceHold or 3,
+            canInteract  = data.canInteract or true
         }
 
         lib.waitFor(function()
@@ -110,9 +111,23 @@ function Hold:check(id)
     local inst = self.instances[id]
     if not inst then return end
 
+    local interactionCoords = vector3(inst.coords.x, inst.coords.y, inst.coords.z)
+    local distance = #(GetEntityCoords(cache.ped) - interactionCoords)
+
 
     if not self:isWithinDistance(id) then
         return
+    end
+
+
+    if not inst.canInteract(id, distance) then
+        return
+    end
+
+
+
+    if cfg.EnableDebug then
+        lib.print.info(msgpack.unpack(msgpack.pack(inst)))
     end
 
     if IsControlPressed(0, inst.bindHold) then

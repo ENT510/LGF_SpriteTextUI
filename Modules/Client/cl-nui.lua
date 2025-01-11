@@ -40,7 +40,8 @@ function TextUi:initializeDui(id, data)
             Message     = data.Message,
             Bind        = data.Bind or Config.DefaultBind,
             UseOnlyBind = data.UseOnlyBind or false,
-            CircleColor = data.CircleColor or Config.DefaultColorCircle
+            CircleColor = data.CircleColor or Config.DefaultColorCircle,
+            progress    = 100,
         }
     })
 
@@ -87,7 +88,8 @@ function TextUi:close(id)
             Message     = duiData.Message,
             Bind        = duiData.Bind,
             UseOnlyBind = duiData.UseOnlyBind,
-            CircleColor = duiData.CircleColor
+            CircleColor = duiData.CircleColor,
+            progress    = 100,
         }
     })
 end
@@ -119,5 +121,3 @@ AddEventHandler("onResourceStop", function(resourceName)
         end
     end
 end)
-
-

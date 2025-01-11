@@ -16,6 +16,7 @@
 ---@field DistanceHold number -- The distance within which the interaction is valid (default 2)
 ---@field Coords vector3 -- Coordinates of the interaction point (x, y, z)
 ---@field onCallback fun(id: string|number) -- Callback function to be called when interaction is complete
+---@field canInteract fun(id: string|number, distance: number): boolean -- Callback function to determine if interaction is possible
 
 -- Handle the TextUI creation or update
 ---@param id string|number -- Identifier for the TextUI
