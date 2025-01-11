@@ -5,7 +5,9 @@
 
 [Prewiev TextUI](https://streamable.com/dvk641)
 
-## Create and configure TextUI/DUI
+## NO HOLDING
+
+### Create and configure TextUI/DUI
 
 ```lua
 ---@class TextUIData
@@ -22,7 +24,7 @@
 exports.LGF_SpriteTextUI:HandleTextUI(id, data)
 ```
 
-## Remove TextUI/DUI from ID
+### Remove TextUI/DUI from ID
 
 ```lua
 ---@param id string -- Unique identifier of the DUI to be removed
@@ -30,14 +32,14 @@ exports.LGF_SpriteTextUI:HandleTextUI(id, data)
 exports.LGF_SpriteTextUI:RemoveTextUI(id)
 ```
 
-## Remove all Existing TextUIs/DUIs
+### Remove all Existing TextUIs/DUIs
 
 ```lua
 ---@return nil
 exports.LGF_SpriteTextUI:RemoveTextUIs()
 ```
 
-## Render a 3Dsprite with correct properties (required 0 thick)
+### Render a 3Dsprite with correct properties (required 0 thick)
 
 ```lua
 ---@param data table -- Contains the DUI handler, coordinates (vector3), and max distance for rendering the sprite
@@ -48,9 +50,53 @@ exports.LGF_SpriteTextUI:RemoveTextUIs()
 exports.LGF_SpriteTextUI:Render3DSprite(data)
 ```
 
-## Get The visibility state of the TextUI/DUI
+### Get The visibility state of the TextUI/DUI
 
 ```lua
 ---@return boolean -- Returns whether the TextUI is visible or not (based on LocalPlayer.state.TextUiBusy)
 exports.LGF_SpriteTextUI:IsDuiVisible()
+```
+
+## HOLDING
+
+### Create and configure TextUI/DUI using the holder state
+
+```lua
+---@class TextUIData
+---@field Visible boolean -- Whether the TextUI is visible or not
+---@field Message string -- The message to be displayed
+---@field Bind string? -- The key bind to be showed in the UI
+---@field UseOnlyBind boolean? -- Whether to use only the bind key for interaction (default: false)
+---@field CircleColor string? -- The color of the circle
+
+---@class HoldInteractionData : TextUIData
+---@field BindToHold number -- The control ID for holding the key (default 38 for 'E')
+---@field TimeToHold number -- The amount of time (in seconds) the key should be held (default 5)
+---@field DistanceHold number -- The distance within which the interaction is valid (default 2)
+---@field Coords vector3 -- Coordinates of the interaction point (x, y, z)
+---@field onCallback fun(id: string|number) -- Callback function to be called when interaction is complete
+exports.LGF_SpriteTextUI:HandleHoldTextUI(id, data)
+```
+
+### Remove TextUI/DUI from ID using the holder state
+
+```lua
+---@param id string -- Unique identifier of the DUI to be removed
+---@return nil
+exports.LGF_SpriteTextUI:RemoveHoldTextUI(id)
+```
+
+### Remove all Existing TextUIs/DUIs using the holder state
+
+```lua
+---@return nil
+exports.LGF_SpriteTextUI:RemoveHoldTextUIs()
+```
+
+### Remove close Only TextUI/DUI state using the holder state
+
+```lua
+---@param id string -- Unique identifier of the DUI to be removed
+---@return nil
+exports.LGF_SpriteTextUI:CloseHoldTextUI(id)
 ```
