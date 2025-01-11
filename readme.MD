@@ -24,6 +24,14 @@
 exports.LGF_SpriteTextUI:HandleTextUI(id, data)
 ```
 
+### Close Only TextUI/DUI
+
+```lua
+---@param id string -- Unique identifier of the DUI to be removed
+---@return nil
+exports.LGF_SpriteTextUI:CloseTextUI(id)
+```
+
 ### Remove TextUI/DUI from ID
 
 ```lua
@@ -93,7 +101,7 @@ exports.LGF_SpriteTextUI:RemoveHoldTextUI(id)
 exports.LGF_SpriteTextUI:RemoveHoldTextUIs()
 ```
 
-### Remove close Only TextUI/DUI state using the holder state
+### Close Only TextUI/DUI state using the holder state
 
 ```lua
 ---@param id string -- Unique identifier of the DUI to be removed
