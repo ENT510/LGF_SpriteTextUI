@@ -73,23 +73,29 @@ function TextUi:clearAllDuis()
     self.duiInstances = {}
 end
 
+function TextUi:close(id)
+    local duiData = self.duiInstances[id]?.duiData
+    local duiHandler = self.duiInstances[id]?.duiHandler
+
+
+    if not duiHandler then return end
+
+    duiHandler:sendMessage({
+        action = 'manageTextUI',
+        data = {
+            Visible     = false,
+            Message     = duiData.Message,
+            Bind        = duiData.Bind,
+            UseOnlyBind = duiData.UseOnlyBind,
+            CircleColor = duiData.CircleColor
+        }
+    })
+end
+
 function TextUi:removeDui(id)
     if self.duiInstances[id] and self.duiInstances[id]?.duiHandler then
         local duiHandler = self.duiInstances[id]?.duiHandler
-        local duiData = self.duiInstances[id]?.duiData
-        if not duiHandler then return end
-
-        duiHandler:sendMessage({
-            action = 'manageTextUI',
-            data = {
-                Visible     = false,
-                Message     = duiData.Message,
-                Bind        = duiData.Bind,
-                UseOnlyBind = duiData.UseOnlyBind,
-                CircleColor = duiData.CircleColor
-            }
-        })
-
+        TextUi:close(id)
         SetTimeout(1000, function()
             duiHandler:remove()
             self.duiInstances[id] = nil
@@ -113,3 +119,5 @@ AddEventHandler("onResourceStop", function(resourceName)
         end
     end
 end)
+
+

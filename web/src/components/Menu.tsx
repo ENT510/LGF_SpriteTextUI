@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Text, Flex, RingProgress } from "@mantine/core";
 import { motion } from "framer-motion";
 
@@ -7,7 +7,8 @@ interface InteractionProps {
   message: string;
   bind: string;
   useOnlyBind: boolean;
-  circleColor:string
+  circleColor: string;
+  progress: number; 
 }
 
 const Interaction: React.FC<InteractionProps> = ({
@@ -15,7 +16,8 @@ const Interaction: React.FC<InteractionProps> = ({
   message,
   bind,
   useOnlyBind,
-  circleColor
+  circleColor,
+  progress
 }) => {
   return (
     <motion.div
@@ -50,7 +52,7 @@ const Interaction: React.FC<InteractionProps> = ({
         <RingProgress
           size={40}
           thickness={3}
-          sections={[{ value: 100, color: circleColor }]}
+          sections={[{ value: progress || 100, color: circleColor }]}
           label={
             <Text size="xs" align="center" color="white">
               {bind}
