@@ -170,7 +170,7 @@ function Hold:closeDui(id)
     dui:sendMessage({
         action = 'manageTextUI',
         data = {
-            Visible     = data.Visible,
+            Visible     = false,
             Message     = data.Message,
             Bind        = self.instances[id].bindKey or cfg.DefaultBind,
             UseOnlyBind = data.UseOnlyBind or false,
