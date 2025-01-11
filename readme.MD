@@ -1,3 +1,6 @@
+![GitHub Downloads](https://img.shields.io/github/downloads/ENT510/LGF_SpriteTextUI/total?logo=github)
+![GitHub Release](https://img.shields.io/github/v/release/ENT510/LGF_SpriteTextUI?logo=github)
+
 # LGF TEXTUI SPRITE
 
 [Prewiev TextUI](https://streamable.com/dvk641)
