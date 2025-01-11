@@ -61,10 +61,3 @@ CreateThread(function()
     end
 end)
 
-AddEventHandler("onResourceStop", function(resourceName)
-    if resourceName == GetCurrentResourceName() then
-        for index, pumpEntity in ipairs(Pumps) do
-            DeleteEntity(pumpEntity)
-        end
-    end
-end)
