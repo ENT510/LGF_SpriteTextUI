@@ -26,7 +26,7 @@ CreateThread(function()
         })
 
         function point:onEnter()
-            duiHandlers[self.id] = exports.LGF_SpriteTextUI:handleTextUI(self.id, {
+            duiHandlers[self.id] = exports.LGF_SpriteTextUI:HandleTextUI(self.id, {
                 Visible = true,
                 Message = ('Interact With Pump %s'):format(self.id),
                 Bind = 'E',
@@ -37,7 +37,7 @@ CreateThread(function()
         end
 
         function point:onExit()
-            exports.LGF_SpriteTextUI:handleTextUI(self.id, {
+            exports.LGF_SpriteTextUI:HandleTextUI(self.id, {
                 Visible = false,
                 Message = ('Interact With Pump %s'):format(self.id),
                 Bind = 'E',
@@ -48,13 +48,13 @@ CreateThread(function()
         end
 
         function point:nearby()
-            exports.LGF_SpriteTextUI:draw3DSprite({
+            exports.LGF_SpriteTextUI:Draw3DSprite({
                 duiHandler = self.duiHandler,
                 coords = vec3(self.coords.x, self.coords.y, self.coords.z + 1),
                 maxDistance = self.distance,
             })
             if self.currentDistance < 2 and IsControlJustReleased(0, 38) then
-                exports.LGF_SpriteTextUI:removeTextUI(self.id)
+                exports.LGF_SpriteTextUI:RemoveTextUI(self.id)
                 point:remove()
             end
         end
