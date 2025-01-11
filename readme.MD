@@ -2,7 +2,6 @@
 
 [Prewiev TextUI](https://streamable.com/dvk641)
 
-
 ## Create and configure TextUI/DUI
 
 ```lua

@@ -63,7 +63,8 @@ end
 
 function TextUi:clearAllDuis()
     for id, duiInstance in pairs(self.duiInstances) do
-        if duiInstance.duiHandler then
+        print(json.encode(duiInstance, { indent = true }))
+        if duiInstance.duiHandler and duiInstance.duiHandler.remove then
             duiInstance.duiHandler:remove()
             if Config.EnableDebug then
                 lib.print.info(("Removed Duis Handle with id %s"):format(id))
@@ -113,4 +114,3 @@ AddEventHandler("onResourceStop", function(resourceName)
         end
     end
 end)
-

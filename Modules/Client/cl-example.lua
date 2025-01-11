@@ -22,7 +22,7 @@ CreateThread(function()
 
         local point = lib.points.new({
             coords = pumpModels[I].coords,
-            distance = 2,
+            distance = 4,
         })
 
         function point:onEnter()
@@ -31,7 +31,7 @@ CreateThread(function()
                 Message = ('Interact With Pump %s'):format(self.id),
                 Bind = 'E',
                 UseOnlyBind = false,
-                CircleColor = "orange"
+                CircleColor = "teal"
             })
             self.duiHandler = duiHandlers[self.id]
         end
