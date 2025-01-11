@@ -3,9 +3,9 @@ if not lib then return end
 TextUi = {}
 TextUi.duiInstances = {}
 local Config = require "Modules.Client.cl-config"
-
 local screenWidth, screenHeight = GetActiveScreenResolution()
 LocalPlayer.state.TextUiBusy = false
+
 
 function TextUi:initializeDui(id, data)
     if not id then return end
@@ -20,11 +20,9 @@ function TextUi:initializeDui(id, data)
                     debug  = Config.EnableDebug or false
                 }),
             }
-
             Wait(500)
         end
     end
-
 
     local duiHandler = self.duiInstances[id].duiHandler
     LocalPlayer.state.TextUiBusy = data.Visible
@@ -76,9 +74,9 @@ function TextUi:clearAllDuis()
 end
 
 function TextUi:removeDui(id)
-    if self.duiInstances[id] and self.duiInstances[id].duiHandler then
-        local duiHandler = self.duiInstances[id].duiHandler
-        local duiData = self.duiInstances[id].duiData
+    if self.duiInstances[id] and self.duiInstances[id]?.duiHandler then
+        local duiHandler = self.duiInstances[id]?.duiHandler
+        local duiData = self.duiInstances[id]?.duiData
         if not duiHandler then return end
 
         duiHandler:sendMessage({

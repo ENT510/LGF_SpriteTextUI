@@ -1,5 +1,5 @@
 local Config = require "Modules.Client.cl-config"
-if not Config.EnableDebug then return end 
+if not Config.EnableDebug then return end
 Pumps = {}
 
 
@@ -63,10 +63,8 @@ end)
 
 AddEventHandler("onResourceStop", function(resourceName)
     if resourceName == GetCurrentResourceName() then
-        if Config.EnableDebug then
-            for index, pumpEntity in ipairs(Pumps) do
-                DeleteEntity(pumpEntity)
-            end
+        for index, pumpEntity in ipairs(Pumps) do
+            DeleteEntity(pumpEntity)
         end
     end
 end)
