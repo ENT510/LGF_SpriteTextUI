@@ -63,7 +63,6 @@ end
 
 function TextUi:clearAllDuis()
     for id, duiInstance in pairs(self.duiInstances) do
-        print(json.encode(duiInstance, { indent = true }))
         if duiInstance.duiHandler and duiInstance.duiHandler.remove then
             duiInstance.duiHandler:remove()
             if Config.EnableDebug then
