@@ -12,13 +12,14 @@ const App: React.FC = () => {
   const [circleColor, setCircleColor] = useState("");
   const [progress, setProgress] = useState(0);
   const [useOnlyBind, setOnlyBind] = useState(false);
-
+  const [bgColor, setBgColor] = useState("");
   useNuiEvent<any>("manageTextUI", (data) => {
     setTextUIvisible(data.Visible);
     setMessage(data.Message);
     setBind(data.Bind);
     setOnlyBind(data.UseOnlyBind);
     setCircleColor(data.CircleColor);
+    setBgColor(data.BgColor);
   });
 
   useNuiEvent<any>("updateProgress", (data) => {
@@ -34,6 +35,7 @@ const App: React.FC = () => {
         useOnlyBind={useOnlyBind}
         circleColor={circleColor}
         progress={progress}
+        bgColor={bgColor}
       />
 
       {isEnvBrowser() && (

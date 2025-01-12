@@ -42,6 +42,7 @@ function TextUi:initializeDui(id, data)
             UseOnlyBind = data.UseOnlyBind or false,
             CircleColor = data.CircleColor or Config.DefaultColorCircle,
             progress    = 100,
+            BgColor     = data.BgColor or Config.DefaultBgColor
         }
     })
 
@@ -90,6 +91,7 @@ function TextUi:close(id)
             UseOnlyBind = duiData.UseOnlyBind,
             CircleColor = duiData.CircleColor,
             progress    = 100,
+            BgColor     = duiData.BgColor or Config.DefaultBgColor
         }
     })
 end

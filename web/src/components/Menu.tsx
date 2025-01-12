@@ -9,6 +9,7 @@ interface InteractionProps {
   useOnlyBind: boolean;
   circleColor: string;
   progress: number; 
+  bgColor:string
 }
 
 const Interaction: React.FC<InteractionProps> = ({
@@ -17,7 +18,8 @@ const Interaction: React.FC<InteractionProps> = ({
   bind,
   useOnlyBind,
   circleColor,
-  progress
+  progress,
+  bgColor
 }) => {
   return (
     <motion.div
@@ -29,9 +31,9 @@ const Interaction: React.FC<InteractionProps> = ({
         top: "50%",
         transform: "translate(-50%, -50%)",
         zIndex: 9999,
-        backgroundColor: "hsl(222.2 47.4% 11.2%)",
+        backgroundColor: bgColor,
         width: "auto",
-        border: "1px solid rgba(55, 65, 81, 0.8)",
+        border: bgColor ? "transparent" : "1px solid rgba(55, 65, 81, 0.8)",
         maxWidth: "250px",
         color: "#fff",
         borderRadius: "7px",

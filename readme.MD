@@ -20,6 +20,7 @@
 ---@param id string|number -- Identifier for the TextUI
 ---@param data TextUIData -- Data containing the configuration for the TextUI
 ---@return duiHandler? -- The handler that interacts with the TextUI
+
 exports.LGF_SpriteTextUI:HandleTextUI(id, data)
 ```
 
@@ -75,6 +76,7 @@ exports.LGF_SpriteTextUI:IsDuiVisible()
 ---@field Bind string? -- The key bind to be showed in the UI
 ---@field UseOnlyBind boolean? -- Whether to use only the bind key for interaction (default: false)
 ---@field CircleColor string? -- The color of the circle
+---@field BgColor string? -- The color of the background
 
 ---@class HoldInteractionData : TextUIData
 ---@field BindToHold number -- The control ID for holding the key (default 38 for 'E')
@@ -133,6 +135,7 @@ local DuiHandler = exports.LGF_SpriteTextUI:HandleHoldTextUI("id_hold", {
     BindToHold = 38,
     TimeToHold = 5,
     DistanceHold = 2,
+    BgColor = "rgba()"
     Coords = GetEntityCoords(cache.ped),
     canInteract = function(id,distance)
         return true

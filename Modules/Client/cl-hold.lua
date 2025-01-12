@@ -36,8 +36,13 @@ function Hold:init(id, data)
             isCompleted  = false,
             coords       = data.Coords or { x = 0, y = 0, z = 0 },
             distanceHold = data.DistanceHold or 3,
-            canInteract  = data.canInteract or true
+            canInteract  = data.canInteract or true,
+            id           = id
         }
+
+        Hold:startThread(id)
+
+        print("started")
 
         lib.waitFor(function()
             return self.instances[id].dui and IsDuiAvailable(self.instances[id].dui.duiObject)
@@ -45,7 +50,6 @@ function Hold:init(id, data)
     end
 
     LocalPlayer.state.TextUiBusy = data.Visible
-
     self.instances[id].intData = data
 
     local dui = self.instances[id].dui
@@ -59,20 +63,22 @@ function Hold:init(id, data)
                 UseOnlyBind = data.UseOnlyBind or false,
                 CircleColor = data.CircleColor or cfg.DefaultColorCircle,
                 Progress    = self.instances[id].progress,
+                BgColor     = data.BgColor or cfg.DefaultBgColor
             }
         })
-
-        CreateThread(function()
-            while self:hasActive() do
-                Wait(0)
-                for id in pairs(Hold.instances) do
-                    self:check(id)
-                end
-            end
-        end)
     end)
 
     return dui
+end
+
+function Hold:startThread(id)
+    self.instances[id].thread = CreateThread(function()
+        while self:hasActive() do
+            if not self.instances[id] then break end
+            Wait(0)
+            self:check(id)
+        end
+    end)
 end
 
 function Hold:update(id)
@@ -104,6 +110,8 @@ function Hold:update(id)
     if inst.progress == 100 and inst.onCallback and not inst.isCompleted then
         inst.onCallback(id)
         inst.isCompleted = true
+
+        Hold:reset(id)
     end
 end
 
@@ -114,17 +122,13 @@ function Hold:check(id)
     local interactionCoords = vector3(inst.coords.x, inst.coords.y, inst.coords.z)
     local distance = #(GetEntityCoords(cache.ped) - interactionCoords)
 
-
     if not self:isWithinDistance(id) then
         return
     end
 
-
     if not inst.canInteract(id, distance) then
         return
     end
-
-
 
     if cfg.EnableDebug then
         lib.print.info(msgpack.unpack(msgpack.pack(inst)))
@@ -137,10 +141,9 @@ function Hold:check(id)
     else
         if inst.holding then
             inst.holding = false
+
             if inst.isCompleted then
-                inst.progress = 0
-                inst.isCompleted = false
-                inst.timeHeld = 0
+                Hold:reset(id)
             end
         end
     end
@@ -149,13 +152,18 @@ function Hold:check(id)
 end
 
 function Hold:remove(id)
-    if self.instances[id] then
-        local dui = self.instances[id].dui
+    local inst = self.instances[id]
+    if inst then
+        Hold:reset(id)
         Hold:closeDui(id)
+        Hold:stopThread(id)
+
+        self.instances[id] = nil
 
         SetTimeout(1000, function()
-            dui:remove()
-            self.instances[id] = nil
+            if inst.dui then
+                inst.dui:remove()
+            end
         end)
     end
 end
@@ -167,6 +175,8 @@ end
 function Hold:closeDui(id)
     local dui = self.instances[id].dui
     local data = self.instances[id].intData
+
+
     dui:sendMessage({
         action = 'manageTextUI',
         data = {
@@ -175,7 +185,37 @@ function Hold:closeDui(id)
             Bind        = self.instances[id].bindKey or cfg.DefaultBind,
             UseOnlyBind = data.UseOnlyBind or false,
             CircleColor = data.CircleColor or cfg.DefaultColorCircle,
-            Progress    = self.instances[id].progress,
+            Progress    = 0,
+            BgColor     = data.BgColor or cfg.DefaultBgColor
         }
     })
 end
+
+function Hold:stopThread(id)
+    if self.instances[id] and self.instances[id].thread then
+        self.instances[id].thread = nil
+    end
+end
+
+function Hold:reset(id)
+    local inst = self.instances[id]
+    if not inst then return end
+
+    inst.progress = 0
+    inst.timeHeld = 0
+    inst.holding = false
+    inst.isCompleted = false
+end
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if resourceName == GetCurrentResourceName() then
+        for id, _ in pairs(Hold.instances) do
+            Hold:remove(id)
+        end
+        if cfg.EnableDebug then
+            for index, pumpEntity in ipairs(Pumps) do
+                DeleteEntity(pumpEntity)
+            end
+        end
+    end
+end)

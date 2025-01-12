@@ -9,6 +9,7 @@
 ---@field Bind string? -- The key bind to be showed in the UI
 ---@field UseOnlyBind boolean? -- Whether to use only the bind key for interaction (default: false)
 ---@field CircleColor string? -- The color of the circle
+---@field BgColor string? -- The color of the background
 
 ---@class HoldInteractionData : TextUIData
 ---@field BindToHold number -- The control ID for holding the key (default 38 for 'E')
